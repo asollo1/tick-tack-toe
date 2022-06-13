@@ -30,21 +30,34 @@ int main(){
         mousex = { GetMousePosition().x};
         mousey = { GetMousePosition().y};
         DrawText("number", mousex, mousey, 20, WHITE);
+        //graphics interface
+        //vertical lines
+        DrawRectangle(0, 0, 10, 340, WHITE);
+        DrawRectangle(110, 0, 10, 340, WHITE);
+        DrawRectangle(220, 0, 10, 340, WHITE);
+        DrawRectangle(330, 0, 10, 340, WHITE);
+        //horizontal lines
+        DrawRectangle(0, 0, 340, 10, WHITE);
+        DrawRectangle(0, 110, 340, 10, WHITE);
+        DrawRectangle(0, 220, 340, 10, WHITE);
+        DrawRectangle(0, 330, 340, 10, WHITE);
+
         //click register
         //first row
-        hitbox(mousex, mousey, 0, 0, 100, 100, 7);
-        hitbox(mousex, mousey, 100, 0, 200, 100, 8);
-        hitbox(mousex, mousey, 200, 0, 300, 100, 9);
+        hitbox(mousex, mousey, 10, 10, 110, 110, 7);
+        hitbox(mousex, mousey, 110, 10, 220, 110, 8);
+        hitbox(mousex, mousey, 220, 10, 330, 110, 9);
         //second row
-        hitbox(mousex, mousey, 0, 100, 100, 200, 4);
-        hitbox(mousex, mousey, 100, 100, 200, 200, 5);
-        hitbox(mousex, mousey, 200, 100, 300, 200, 6);
+        hitbox(mousex, mousey, 10, 120, 110, 220, 4);
+        hitbox(mousex, mousey, 110, 120, 220, 220, 5);
+        hitbox(mousex, mousey, 220, 120, 330, 220, 6);
         //third row
-        if (hitbox(mousex, mousey, 0, 200, 100, 300, 1) == 1){
-            
-        }
-        hitbox(mousex, mousey, 100, 200, 200, 300, 2);
-        hitbox(mousex, mousey, 200, 200, 300, 300, 3);
+        hitbox(mousex, mousey, 10, 230, 110, 330, 1);
+        hitbox(mousex, mousey, 110, 230, 220, 330, 2);
+        hitbox(mousex, mousey, 220, 230, 330, 330, 3);
+
+        //Debugging
+        DrawRectangle(10, 120, 100, 100, RED);
         EndDrawing();
     }
     CloseWindow();
