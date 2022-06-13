@@ -7,8 +7,26 @@ int mousex, mousey;
 //Cells
 int p1, p2, p3, p4, p5, p6, p7, p8, p9;
 //Playesrs
-bool isPlayerOne = true, isPlayerTwo = false, isWin = false;
+bool isPlayerOne = true, isPlayerTwo = false, isWinP1 = false, isWinP2 = false;
 //Functions
+int win(int player){
+    if(p1==player){
+        if(p2 == player && p3 == player or p5 == player && p9 == player or p4 == player && p7 == player){
+            isWinP1 = true;
+        }
+    }
+    if(p2==player && p5==player && p8==player){
+        isWinP1 = true;
+    }
+    if (p3==player){
+        if(p6 == player && p9 == player or p5 == player && p7 == player){
+            isWinP1 = true;
+        }
+    }
+    if (p4==player && p5 == player && p6 == player){
+        isWinP1 = true;
+    }
+}
 int hitbox(int mousex, int mousey, int fromx, int fromy, int tox, int toy, int key){
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && mousex >= fromx  && mousey >= fromy && mousex <= tox && mousey <= toy or IsKeyDown(key)){
         return 1;
