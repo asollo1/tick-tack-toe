@@ -1,30 +1,34 @@
 #include "include/raylib/raylib.h"
 #include <iostream>
+#include <string>
 
 //Variables
 //Mouse position
 int mousex, mousey;
 //Cells
 int p1, p2, p3, p4, p5, p6, p7, p8, p9;
+//Score
+int scoreP1 = 0, scoreP2 = 0;
+const char* playerAscore, *playerBscore;
 //Playesrs
 bool isPlayerOne = true, isPlayerTwo = false, isWinP1 = false, isWinP2 = false;
 //Functions
 int win(int player){
     if(p1==player){
         if(p2 == player && p3 == player or p5 == player && p9 == player or p4 == player && p7 == player){
-            isWinP1 = true;
+            isWinP2 = true;
         }
     }
     if(p2==player && p5==player && p8==player){
-        isWinP1 = true;
+        isWinP2 = true;
     }
     if (p3==player){
         if(p6 == player && p9 == player or p5 == player && p7 == player){
-            isWinP1 = true;
+            isWinP2 = true;
         }
     }
     if (p4==player && p5 == player && p6 == player){
-        isWinP1 = true;
+        isWinP2= true;
     }
 }
 int hitbox(int mousex, int mousey, int fromx, int fromy, int tox, int toy, int key){
@@ -33,6 +37,7 @@ int hitbox(int mousex, int mousey, int fromx, int fromy, int tox, int toy, int k
     }
     return 0;
 }
+//main function
 int main(){
     
     //Initialization
@@ -59,7 +64,16 @@ int main(){
         DrawRectangle(0, 110, 340, 10, WHITE);
         DrawRectangle(0, 220, 340, 10, WHITE);
         DrawRectangle(0, 330, 340, 10, WHITE);
-
+        //score display
+        playerAscore = std::to_string(scoreP1).c_str();
+        playerBscore = std::to_string(scoreP2).c_str();
+        //playerAscore = "Player A: " + playerAscore
+        //playerBscore = "Player B: " + playerBscore
+        DrawText("Score", 500, 100, 50, WHITE);
+        DrawText("Player A: ", 450, 200, 50, WHITE);
+        DrawText("Player B: ", 450, 300, 50, WHITE);
+        DrawText(playerAscore, 700, 200, 50, WHITE);
+        DrawText(playerBscore, 700, 300, 50, WHITE);
         //click register
         //first row
         hitbox(mousex, mousey, 10, 10, 110, 110, 7);
