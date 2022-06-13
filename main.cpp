@@ -16,19 +16,39 @@ bool isPlayerOne = true, isPlayerTwo = false, isWinP1 = false, isWinP2 = false;
 int win(int player){
     if(p1==player){
         if(p2 == player && p3 == player or p5 == player && p9 == player or p4 == player && p7 == player){
-            isWinP2 = true;
+            if(player==1){
+                isWinP1 = true;
+            }
+            else{
+                isWinP2 = true;
+            }
         }
     }
     if(p2==player && p5==player && p8==player){
-        isWinP2 = true;
-    }
-    if (p3==player){
-        if(p6 == player && p9 == player or p5 == player && p7 == player){
+        if(player==1){
+            isWinP1 = true;
+        }
+        else{
             isWinP2 = true;
         }
     }
+    if (p3==player){
+        if(p6 == player && p9 == player or p5 == player && p7 == player){
+            if(player==1){
+                isWinP1 = true;
+            }
+            else{
+                isWinP2 = true;
+            } 
+        }
+    }
     if (p4==player && p5 == player && p6 == player){
-        isWinP2= true;
+        if(player==1){
+            isWinP1 = true;
+        }
+        else{
+            isWinP2 = true;
+        }
     }
 }
 int hitbox(int mousex, int mousey, int fromx, int fromy, int tox, int toy, int key){
