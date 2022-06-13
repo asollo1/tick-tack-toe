@@ -6,49 +6,67 @@
 //Mouse position
 int mousex, mousey;
 //Cells
-int p1, p2, p3, p4, p5, p6, p7, p8, p9;
+struct p {
+    int startposx, startposy, endposx, endposy, status, keybind;
+};
+struct p p1 = {10, 10, 110, 110, 0, 49}, p2 = {110, 10, 220, 110, 0, 50}, p3 = {220, 10, 330, 110, 0, 51}, p4 = {10, 120, 110, 110, 0, 52}, p5 = {110, 120, 220, 220, 0, 53}, p6 = {220, 120, 330, 220, 0, 54}, p7 = {10, 230, 110, 330, 0, 55}, p8 = {110, 230, 220, 330, 0, 56}, p9 = {220, 230, 330, 330, 0, 55};
 //Score
 int scoreP1 = 0, scoreP2 = 0;
 const char* playerAscore, *playerBscore;
 //Playesrs
 bool isPlayerOne = true, isPlayerTwo = false, isWinP1 = false, isWinP2 = false;
 //Functions
+int clear(){
+    p1.status = 0;
+    p2.status = 0;
+    p3.status = 0;
+    p4.status = 0;
+    p5.status = 0;
+    p6.status = 0;
+    p7.status = 0;
+    p8.status = 0;
+    p9.status = 0;
+}
 int win(int player){
-    if(p1==player){
-        if(p2 == player && p3 == player or p5 == player && p9 == player or p4 == player && p7 == player){
+    if(p1.status==player){
+        if(p2.status == player && p3.status == player or p5.status == player && p9.status == player or p4.status == player && p7.status == player){
             if(player==1){
                 isWinP1 = true;
             }
             else{
                 isWinP2 = true;
             }
+            clear();
         }
     }
-    if(p2==player && p5==player && p8==player){
+    if(p2.status==player && p5.status==player && p8.status==player){
         if(player==1){
             isWinP1 = true;
         }
         else{
             isWinP2 = true;
         }
+        clear();
     }
-    if (p3==player){
-        if(p6 == player && p9 == player or p5 == player && p7 == player){
+    if (p3.status==player){
+        if(p6.status == player && p9.status == player or p5.status == player && p7.status == player){
             if(player==1){
                 isWinP1 = true;
             }
             else{
                 isWinP2 = true;
             } 
+            clear();
         }
     }
-    if (p4==player && p5 == player && p6 == player){
+    if (p4.status==player && p5.status == player && p6.status == player){
         if(player==1){
             isWinP1 = true;
         }
         else{
             isWinP2 = true;
         }
+        clear();
     }
 }
 int hitbox(int mousex, int mousey, int fromx, int fromy, int tox, int toy, int key){
@@ -107,7 +125,9 @@ int main(){
         hitbox(mousex, mousey, 10, 230, 110, 330, 1);
         hitbox(mousex, mousey, 110, 230, 220, 330, 2);
         hitbox(mousex, mousey, 220, 230, 330, 330, 3);
-
+        //win check
+        win(1);
+        win(2);
         //Debugging
         DrawRectangle(10, 120, 100, 100, RED);
         EndDrawing();
