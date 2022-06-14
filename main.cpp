@@ -9,9 +9,9 @@ int mousex, mousey;
 struct p {
     int startposx, startposy, endposx, endposy, status, keybind;
 };
-struct p p1 = {10, 10, 110, 110, 0, 49}, p2 = {110, 10, 220, 110, 0, 50}, p3 = {220, 10, 330, 110, 0, 51}, p4 = {10, 120, 110, 110, 0, 52}, p5 = {110, 120, 220, 220, 0, 53}, p6 = {220, 120, 330, 220, 0, 54}, p7 = {10, 230, 110, 330, 0, 55}, p8 = {110, 230, 220, 330, 0, 56}, p9 = {220, 230, 330, 330, 0, 55};
+struct p p1 = {10, 10, 110, 110, 0, 49}, p2 = {120, 10, 220, 110, 0, 50}, p3 = {230, 10, 330, 110, 0, 51}, p4 = {10, 120, 110, 220, 0, 52}, p5 = {120, 120, 220, 220, 0, 53}, p6 = {230, 120, 330, 220, 0, 54}, p7 = {10, 230, 110, 330, 0, 55}, p8 = {120, 230, 220, 330, 0, 56}, p9 = {230, 230, 330, 330, 0, 55};
 //Score
-int scoreP1 = 0, scoreP2 = 0;
+int scoreP1 = 0, scoreP2 = 0, count = 0;
 const char* playerAscore, *playerBscore;
 //Playesrs
 bool isPlayerOne = true, isPlayerTwo = false, isWinP1 = false, isWinP2 = false;
@@ -36,6 +36,7 @@ int clear(){
     }
     isWinP1 = false;
     isWinP2 = false;
+    count = 0;
 }
 int win(int player){
     if(p1.status==player){
@@ -87,18 +88,19 @@ int hitbox(int mousex, int mousey, int fromx, int fromy, int tox, int toy, int k
 }
 int cellfill(int status, int x, int y){
     x = x + 50;
-    y = y - 50;
+    y = y + 50;
     if (status == 1){
-        DrawCircle(x, y, 45, BLUE);
+        DrawCircle(x, y, 45, RED);
         DrawCircle(x, y, 30, BLACK);
     }
     if (status == 2){
         int endx, endy;
         x = x - 40;
-        y = y - 40;
-        endx = x + 45;
-        endy = y + 45;
-        DrawLine(x, y, endx, endy, BLUE);
+        y = y + 40;
+        endx = x + 80;
+        endy = y - 80;
+        DrawLine(x, y, endx, endy, GREEN);
+        DrawLine(endx, y, x, endy, GREEN);
     }
 }
 //main function
@@ -144,11 +146,13 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p1.status = 1;
+                    count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p1.status = 2;
+                    count++;continue;
                 }
             }
         }
@@ -158,11 +162,13 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p2.status = 1;
+                    count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p2.status = 2;
+                    count++;continue;
                 }
             }
         }
@@ -172,11 +178,13 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p3.status = 1;
+                    count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p3.status = 2;
+                    count++;continue;
                 }
             }
         }
@@ -187,11 +195,13 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p4.status = 1;
+                    count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p4.status = 2;
+                    count++;continue;
                 }
             }
         }
@@ -201,11 +211,13 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p5.status = 1;
+                    count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p5.status = 2;
+                    count++;continue;
                 }
             }
         }
@@ -215,11 +227,13 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p6.status = 1;
+                    count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p6.status = 2;
+                    count++;continue;
                 }
             }
         }
@@ -230,11 +244,13 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p7.status = 1;
+                    count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p7.status = 2;
+                    count++;continue;
                 }
             }
         }
@@ -244,11 +260,13 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p8.status = 1;
+                    count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p8.status = 2;
+                    count++;continue;
                 }
             }
         }
@@ -258,23 +276,37 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p9.status = 1;
+                    count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p9.status = 2;
+                    count++;continue;
                 }
             }
         }
         // Circles and exes
-
+        //first row
+        cellfill(p1.status, p1.startposx, p1.startposy);
+        cellfill(p2.status, p2.startposx, p2.startposy);
+        cellfill(p3.status, p3.startposx, p3.startposy);
+        //second row
+        cellfill(p4.status, p4.startposx, p4.startposy);
+        cellfill(p5.status, p5.startposx, p5.startposy);
+        cellfill(p6.status, p6.startposx, p6.startposy);
+        //third row
+        cellfill(p7.status, p7.startposx, p7.startposy);
+        cellfill(p8.status, p8.startposx, p8.startposy);
+        cellfill(p9.status, p9.startposx, p9.startposy);
         //win check
         win(1);
         win(2);
-        //Debugging
-        std::cout << p1.status << std::endl;
-        cellfill(p1.status, p1.startposx, p1.startposy);
-        DrawRectangle(10, 120, 100, 100, RED);
+        if (count == 9){
+            clear();
+        }
+        //Debuging 
+        std::cout << count << std::endl;
         EndDrawing();
     }
     CloseWindow();
