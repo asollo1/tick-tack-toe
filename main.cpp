@@ -26,6 +26,16 @@ int clear(){
     p7.status = 0;
     p8.status = 0;
     p9.status = 0;
+    isPlayerTwo = false;
+    isPlayerOne = true;
+    if (isWinP1){
+        scoreP1 = scoreP1 +1;
+    }
+    else if(isWinP2){
+        scoreP2 = scoreP2 +1;
+    }
+    isWinP1 = false;
+    isWinP2 = false;
 }
 int win(int player){
     if(p1.status==player){
@@ -71,9 +81,25 @@ int win(int player){
 }
 int hitbox(int mousex, int mousey, int fromx, int fromy, int tox, int toy, int key){
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && mousex >= fromx  && mousey >= fromy && mousex <= tox && mousey <= toy or IsKeyDown(key)){
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
+}
+int cellfill(int status, int x, int y){
+    x = x + 50;
+    y = y - 50;
+    if (status == 1){
+        DrawCircle(x, y, 45, BLUE);
+        DrawCircle(x, y, 30, BLACK);
+    }
+    if (status == 2){
+        int endx, endy;
+        x = x - 40;
+        y = y - 40;
+        endx = x + 45;
+        endy = y + 45;
+        DrawLine(x, y, endx, endy, BLUE);
+    }
 }
 //main function
 int main(){
@@ -105,8 +131,6 @@ int main(){
         //score display
         playerAscore = std::to_string(scoreP1).c_str();
         playerBscore = std::to_string(scoreP2).c_str();
-        //playerAscore = "Player A: " + playerAscore
-        //playerBscore = "Player B: " + playerBscore
         DrawText("Score", 500, 100, 50, WHITE);
         DrawText("Player A: ", 450, 200, 50, WHITE);
         DrawText("Player B: ", 450, 300, 50, WHITE);
@@ -114,21 +138,142 @@ int main(){
         DrawText(playerBscore, 700, 300, 50, WHITE);
         //click register
         //first row
-        hitbox(mousex, mousey, 10, 10, 110, 110, 7);
-        hitbox(mousex, mousey, 110, 10, 220, 110, 8);
-        hitbox(mousex, mousey, 220, 10, 330, 110, 9);
+        if(hitbox(mousex, mousey, p1.startposx, p1.startposy, p1.endposx, p1.endposy, p1.keybind)){
+            if (p1.status==0){
+                if (isPlayerOne){
+                    isPlayerOne = false;
+                    isPlayerTwo = true;
+                    p1.status = 1;
+                }
+                if (isPlayerTwo){
+                    isPlayerTwo = false;
+                    isPlayerOne = true;
+                    p1.status = 2;
+                }
+            }
+        }
+        if(hitbox(mousex, mousey, p2.startposx, p2.startposy, p2.endposx, p2.endposy, p2.keybind)){
+            if (p2.status==0){
+                if (isPlayerOne){
+                    isPlayerOne = false;
+                    isPlayerTwo = true;
+                    p2.status = 1;
+                }
+                if (isPlayerTwo){
+                    isPlayerTwo = false;
+                    isPlayerOne = true;
+                    p2.status = 2;
+                }
+            }
+        }
+        if(hitbox(mousex, mousey, p3.startposx, p3.startposy, p3.endposx, p3.endposy, p3.keybind)){
+            if (p3.status==0){
+                if (isPlayerOne){
+                    isPlayerOne = false;
+                    isPlayerTwo = true;
+                    p3.status = 1;
+                }
+                if (isPlayerTwo){
+                    isPlayerTwo = false;
+                    isPlayerOne = true;
+                    p3.status = 2;
+                }
+            }
+        }
         //second row
-        hitbox(mousex, mousey, 10, 120, 110, 220, 4);
-        hitbox(mousex, mousey, 110, 120, 220, 220, 5);
-        hitbox(mousex, mousey, 220, 120, 330, 220, 6);
+        if(hitbox(mousex, mousey, p4.startposx, p4.startposy, p4.endposx, p4.endposy, p4.keybind)){
+            if (p4.status==0){
+                if (isPlayerOne){
+                    isPlayerOne = false;
+                    isPlayerTwo = true;
+                    p4.status = 1;
+                }
+                if (isPlayerTwo){
+                    isPlayerTwo = false;
+                    isPlayerOne = true;
+                    p4.status = 2;
+                }
+            }
+        }
+        if(hitbox(mousex, mousey, p5.startposx, p5.startposy, p5.endposx, p5.endposy, p5.keybind)){
+            if (p5.status==0){
+                if (isPlayerOne){
+                    isPlayerOne = false;
+                    isPlayerTwo = true;
+                    p5.status = 1;
+                }
+                if (isPlayerTwo){
+                    isPlayerTwo = false;
+                    isPlayerOne = true;
+                    p5.status = 2;
+                }
+            }
+        }
+        if(hitbox(mousex, mousey, p6.startposx, p6.startposy, p6.endposx, p6.endposy, p6.keybind)){
+            if (p6.status==0){
+                if (isPlayerOne){
+                    isPlayerOne = false;
+                    isPlayerTwo = true;
+                    p6.status = 1;
+                }
+                if (isPlayerTwo){
+                    isPlayerTwo = false;
+                    isPlayerOne = true;
+                    p6.status = 2;
+                }
+            }
+        }
         //third row
-        hitbox(mousex, mousey, 10, 230, 110, 330, 1);
-        hitbox(mousex, mousey, 110, 230, 220, 330, 2);
-        hitbox(mousex, mousey, 220, 230, 330, 330, 3);
+        if(hitbox(mousex, mousey, p7.startposx, p7.startposy, p7.endposx, p7.endposy, p7.keybind)){
+            if (p7.status==0){
+                if (isPlayerOne){
+                    isPlayerOne = false;
+                    isPlayerTwo = true;
+                    p7.status = 1;
+                }
+                if (isPlayerTwo){
+                    isPlayerTwo = false;
+                    isPlayerOne = true;
+                    p7.status = 2;
+                }
+            }
+        }
+        if(hitbox(mousex, mousey, p8.startposx, p8.startposy, p8.endposx, p8.endposy, p8.keybind)){
+            if (p8.status==0){
+                if (isPlayerOne){
+                    isPlayerOne = false;
+                    isPlayerTwo = true;
+                    p8.status = 1;
+                }
+                if (isPlayerTwo){
+                    isPlayerTwo = false;
+                    isPlayerOne = true;
+                    p8.status = 2;
+                }
+            }
+        }
+        if(hitbox(mousex, mousey, p9.startposx, p9.startposy, p9.endposx, p9.endposy, p9.keybind)){
+            if (p9.status==0){
+                if (isPlayerOne){
+                    isPlayerOne = false;
+                    isPlayerTwo = true;
+                    p9.status = 1;
+                }
+                if (isPlayerTwo){
+                    isPlayerTwo = false;
+                    isPlayerOne = true;
+                    p9.status = 2;
+                }
+            }
+        }
+        // Circles and exes
+
         //win check
         win(1);
         win(2);
         //Debugging
+        std::cout << p1.status << std::endl;
+        cellfill(p1.status, p1.startposx, p1.startposy);
         DrawRectangle(10, 120, 100, 100, RED);
         EndDrawing();
     }
