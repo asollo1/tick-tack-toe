@@ -12,7 +12,6 @@ struct p {
 struct p p1 = {10, 10, 110, 110, 0, 49}, p2 = {120, 10, 220, 110, 0, 50}, p3 = {230, 10, 330, 110, 0, 51}, p4 = {10, 120, 110, 220, 0, 52}, p5 = {120, 120, 220, 220, 0, 53}, p6 = {230, 120, 330, 220, 0, 54}, p7 = {10, 230, 110, 330, 0, 55}, p8 = {120, 230, 220, 330, 0, 56}, p9 = {230, 230, 330, 330, 0, 55};
 //Score
 int scoreP1 = 0, scoreP2 = 0, count = 0;
-const char* playerAscore, *playerBscore;
 //Playesrs
 bool isPlayerOne = true, isPlayerTwo = false, isWinP1 = false, isWinP2 = false;
 //Functions
