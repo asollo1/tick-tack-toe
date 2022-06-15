@@ -118,7 +118,6 @@ int main(){
         //mouse position
         mousex = { GetMousePosition().x};
         mousey = { GetMousePosition().y};
-        DrawText("number", mousex, mousey, 20, WHITE);
         //graphics interface
         //vertical lines
         DrawRectangle(0, 0, 10, 340, WHITE);
@@ -131,13 +130,11 @@ int main(){
         DrawRectangle(0, 220, 340, 10, WHITE);
         DrawRectangle(0, 330, 340, 10, WHITE);
         //score display
-        playerAscore = std::to_string(scoreP1).c_str();
-        playerBscore = std::to_string(scoreP2).c_str();
         DrawText("Score", 500, 100, 50, WHITE);
         DrawText("Player A: ", 450, 200, 50, WHITE);
         DrawText("Player B: ", 450, 300, 50, WHITE);
-        DrawText(playerAscore, 700, 200, 50, WHITE);
-        DrawText(playerBscore, 700, 300, 50, WHITE);
+        DrawText(std::to_string(scoreP1).c_str(), 700, 200, 50, WHITE);
+        DrawText(std::to_string(scoreP2).c_str(), 700, 300, 50, WHITE);
         //click register
         //first row
         if(hitbox(mousex, mousey, p1.startposx, p1.startposy, p1.endposx, p1.endposy, p1.keybind)){
