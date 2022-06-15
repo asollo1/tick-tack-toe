@@ -107,7 +107,7 @@ int cellfill(int status, int x, int y){
 int main(){
     
     //Initialization
-    InitWindow(800,600,"Hello world!");
+    InitWindow(800,600,"Tick tack toe");
     SetTargetFPS(60);
     mousex = { GetMousePosition().x};
     mousey = { GetMousePosition().y};
@@ -302,8 +302,6 @@ int main(){
         if (count == 9){
             clear();
         }
-        //Debuging 
-        std::cout << count << std::endl;
         EndDrawing();
     }
     CloseWindow();
