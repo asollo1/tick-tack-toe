@@ -9,7 +9,7 @@ int mousex, mousey;
 struct p {
     int startposx, startposy, endposx, endposy, status, keybind;
 };
-struct p p1 = {10, 10, 110, 110, 0, 49}, p2 = {120, 10, 220, 110, 0, 50}, p3 = {230, 10, 330, 110, 0, 51}, p4 = {10, 120, 110, 220, 0, 52}, p5 = {120, 120, 220, 220, 0, 53}, p6 = {230, 120, 330, 220, 0, 54}, p7 = {10, 230, 110, 330, 0, 55}, p8 = {120, 230, 220, 330, 0, 56}, p9 = {230, 230, 330, 330, 0, 55};
+struct p p1 = {20, 20, 120, 120, 0, 49}, p2 = {130, 20, 230, 120, 0, 50}, p3 = {240, 20, 340, 120, 0, 51}, p4 = {20, 130, 120, 230, 0, 52}, p5 = {130, 130, 230, 230, 0, 53}, p6 = {240, 130, 340, 230, 0, 54}, p7 = {20, 240, 120, 340, 0, 55}, p8 = {130, 240, 230, 340, 0, 56}, p9 = {240, 240, 340, 340, 0, 55};
 //Score
 int scoreP1 = 0, scoreP2 = 0, count = 0;
 //Playesrs
@@ -85,55 +85,47 @@ int hitbox(int mousex, int mousey, int fromx, int fromy, int tox, int toy, int k
     }
     return false;
 }
-int cellfill(int status, int x, int y){
-    x = x + 50;
-    y = y + 50;
+int cellfill(int status, int x, int y, Texture2D circle, Texture2D xs){
     if (status == 1){
-        DrawCircle(x, y, 45, RED);
-        DrawCircle(x, y, 30, BLACK);
+        DrawTexture(circle, x, y, WHITE);
     }
     if (status == 2){
-        int endx, endy;
-        x = x - 40;
-        y = y + 40;
-        endx = x + 80;
-        endy = y - 80;
-        DrawLine(x, y, endx, endy, GREEN);
-        DrawLine(endx, y, x, endy, GREEN);
+        DrawTexture(xs, x, y, WHITE);
     }
 }
 //main function
 int main(){
     
     //Initialization
-    InitWindow(800,600,"Tick tack toe");
+    InitWindow(800,360,"Tick tack toe");
     SetTargetFPS(60);
     mousex = { GetMousePosition().x};
     mousey = { GetMousePosition().y};
+    //loading textures
+    Texture2D circle = LoadTexture("images/circle.png"), xs = LoadTexture("images/x.png");
     while(!WindowShouldClose()){
         BeginDrawing();
-        ClearBackground(BLACK);
-
+        ClearBackground(DARKBLUE);
         //mouse position
         mousex = { GetMousePosition().x};
         mousey = { GetMousePosition().y};
         //graphics interface
         //vertical lines
-        DrawRectangle(0, 0, 10, 340, WHITE);
-        DrawRectangle(110, 0, 10, 340, WHITE);
-        DrawRectangle(220, 0, 10, 340, WHITE);
-        DrawRectangle(330, 0, 10, 340, WHITE);
+        DrawRectangle(10, 10, 10, 340, WHITE);
+        DrawRectangle(120, 10, 10, 340, WHITE);
+        DrawRectangle(230, 10, 10, 340, WHITE);
+        DrawRectangle(340, 10, 10, 340, WHITE);
         //horizontal lines
-        DrawRectangle(0, 0, 340, 10, WHITE);
-        DrawRectangle(0, 110, 340, 10, WHITE);
-        DrawRectangle(0, 220, 340, 10, WHITE);
-        DrawRectangle(0, 330, 340, 10, WHITE);
+        DrawRectangle(10, 10, 340, 10, WHITE);
+        DrawRectangle(10, 120, 340, 10, WHITE);
+        DrawRectangle(10, 230, 340, 10, WHITE);
+        DrawRectangle(10, 340, 340, 10, WHITE);
         //score display
         DrawText("Score", 500, 100, 50, WHITE);
-        DrawText("Player A: ", 450, 200, 50, WHITE);
-        DrawText("Player B: ", 450, 300, 50, WHITE);
-        DrawText(std::to_string(scoreP1).c_str(), 700, 200, 50, WHITE);
-        DrawText(std::to_string(scoreP2).c_str(), 700, 300, 50, WHITE);
+        DrawText("Player A: ", 450, 150, 50, WHITE);
+        DrawText("Player B: ", 450, 200, 50, WHITE);
+        DrawText(std::to_string(scoreP1).c_str(), 700, 150, 50, WHITE);
+        DrawText(std::to_string(scoreP2).c_str(), 700, 200, 50, WHITE);
         //click register
         //first row
         if(hitbox(mousex, mousey, p1.startposx, p1.startposy, p1.endposx, p1.endposy, p1.keybind)){
@@ -284,17 +276,17 @@ int main(){
         }
         // Circles and exes
         //first row
-        cellfill(p1.status, p1.startposx, p1.startposy);
-        cellfill(p2.status, p2.startposx, p2.startposy);
-        cellfill(p3.status, p3.startposx, p3.startposy);
+        cellfill(p1.status, p1.startposx, p1.startposy, circle, xs);
+        cellfill(p2.status, p2.startposx, p2.startposy, circle, xs);
+        cellfill(p3.status, p3.startposx, p3.startposy, circle, xs);
         //second row
-        cellfill(p4.status, p4.startposx, p4.startposy);
-        cellfill(p5.status, p5.startposx, p5.startposy);
-        cellfill(p6.status, p6.startposx, p6.startposy);
+        cellfill(p4.status, p4.startposx, p4.startposy, circle, xs);
+        cellfill(p5.status, p5.startposx, p5.startposy, circle, xs);
+        cellfill(p6.status, p6.startposx, p6.startposy, circle, xs);
         //third row
-        cellfill(p7.status, p7.startposx, p7.startposy);
-        cellfill(p8.status, p8.startposx, p8.startposy);
-        cellfill(p9.status, p9.startposx, p9.startposy);
+        cellfill(p7.status, p7.startposx, p7.startposy, circle, xs);
+        cellfill(p8.status, p8.startposx, p8.startposy, circle, xs);
+        cellfill(p9.status, p9.startposx, p9.startposy, circle, xs);
         //win check
         win(1);
         win(2);
