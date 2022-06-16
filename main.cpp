@@ -15,7 +15,7 @@ int scoreP1 = 0, scoreP2 = 0, count = 0;
 //Playesrs
 bool isPlayerOne = true, isPlayerTwo = false, isWinP1 = false, isWinP2 = false;
 //Functions
-int clear(){
+int clear(Sound winsound){
     p1.status = 0;
     p2.status = 0;
     p3.status = 0;
@@ -25,19 +25,19 @@ int clear(){
     p7.status = 0;
     p8.status = 0;
     p9.status = 0;
-    isPlayerTwo = false;
-    isPlayerOne = true;
     if (isWinP1){
         scoreP1 = scoreP1 +1;
+        PlaySound(winsound);
     }
     else if(isWinP2){
         scoreP2 = scoreP2 +1;
+        PlaySound(winsound);
     }
     isWinP1 = false;
     isWinP2 = false;
     count = 0;
 }
-int win(int player){
+int win(int player, Sound winsound){
     if(p1.status==player){
         if(p2.status == player && p3.status == player or p5.status == player && p9.status == player or p4.status == player && p7.status == player){
             if(player==1){
@@ -46,7 +46,7 @@ int win(int player){
             else{
                 isWinP2 = true;
             }
-            clear();
+            clear(winsound);
         }
     }
     if(p2.status==player && p5.status==player && p8.status==player){
@@ -56,7 +56,7 @@ int win(int player){
         else{
             isWinP2 = true;
         }
-        clear();
+        clear(winsound);
     }
     if (p3.status==player){
         if(p6.status == player && p9.status == player or p5.status == player && p7.status == player){
@@ -66,7 +66,7 @@ int win(int player){
             else{
                 isWinP2 = true;
             } 
-            clear();
+            clear(winsound);
         }
     }
     if (p4.status==player && p5.status == player && p6.status == player){
@@ -76,7 +76,7 @@ int win(int player){
         else{
             isWinP2 = true;
         }
-        clear();
+        clear(winsound);
     }
 }
 int hitbox(int mousex, int mousey, int fromx, int fromy, int tox, int toy, int key){
@@ -95,14 +95,18 @@ int cellfill(int status, int x, int y, Texture2D circle, Texture2D xs){
 }
 //main function
 int main(){
-    
     //Initialization
     InitWindow(800,360,"Tick tack toe");
+    InitAudioDevice();
     SetTargetFPS(60);
     mousex = { GetMousePosition().x};
     mousey = { GetMousePosition().y};
     //loading textures
     Texture2D circle = LoadTexture("images/circle.png"), xs = LoadTexture("images/x.png");
+    //loading sounds
+    Sound circlesound = LoadSound("sounds/circle.wav");
+    Sound xsound = LoadSound("sounds/x.wav");
+    Sound winsound = LoadSound("sounds/win.wav");
     while(!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(DARKBLUE);
@@ -134,12 +138,14 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p1.status = 1;
+                    PlaySound(xsound); 
                     count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p1.status = 2;
+                    PlaySound(circlesound);
                     count++;continue;
                 }
             }
@@ -150,12 +156,14 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p2.status = 1;
+                    PlaySound(xsound);
                     count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p2.status = 2;
+                    PlaySound(circlesound);
                     count++;continue;
                 }
             }
@@ -166,12 +174,14 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p3.status = 1;
+                    PlaySound(xsound);
                     count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p3.status = 2;
+                    PlaySound(circlesound);
                     count++;continue;
                 }
             }
@@ -183,12 +193,14 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p4.status = 1;
+                    PlaySound(xsound);
                     count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p4.status = 2;
+                    PlaySound(circlesound);
                     count++;continue;
                 }
             }
@@ -199,12 +211,14 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p5.status = 1;
+                    PlaySound(xsound);
                     count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p5.status = 2;
+                    PlaySound(circlesound);
                     count++;continue;
                 }
             }
@@ -215,12 +229,14 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p6.status = 1;
+                    PlaySound(xsound);
                     count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p6.status = 2;
+                    PlaySound(circlesound);
                     count++;continue;
                 }
             }
@@ -232,12 +248,14 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p7.status = 1;
+                    PlaySound(xsound);
                     count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p7.status = 2;
+                    PlaySound(circlesound);
                     count++;continue;
                 }
             }
@@ -248,12 +266,14 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p8.status = 1;
+                    PlaySound(xsound);
                     count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p8.status = 2;
+                    PlaySound(circlesound);
                     count++;continue;
                 }
             }
@@ -264,12 +284,14 @@ int main(){
                     isPlayerOne = false;
                     isPlayerTwo = true;
                     p9.status = 1;
+                    PlaySound(xsound);
                     count++;continue;
                 }
                 if (isPlayerTwo){
                     isPlayerTwo = false;
                     isPlayerOne = true;
                     p9.status = 2;
+                    PlaySound(circlesound);
                     count++;continue;
                 }
             }
@@ -288,10 +310,10 @@ int main(){
         cellfill(p8.status, p8.startposx, p8.startposy, circle, xs);
         cellfill(p9.status, p9.startposx, p9.startposy, circle, xs);
         //win check
-        win(1);
-        win(2);
+        win(1, winsound);
+        win(2, winsound);
         if (count == 9){
-            clear();
+            clear(winsound);
         }
         EndDrawing();
     }
