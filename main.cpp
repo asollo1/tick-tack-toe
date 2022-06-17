@@ -15,7 +15,8 @@ int scoreP1 = 0, scoreP2 = 0, count = 0;
 //Playesrs
 bool isPlayerOne = true, isPlayerTwo = false, isWinP1 = false, isWinP2 = false;
 //Game
-bool isTitle = true, isGame = false;
+bool isTitle = true, isGame = false, isWin = false;
+int winner = 0;
 //Functions
 int clear(Sound winsound){
     p1.status = 0;
@@ -30,10 +31,16 @@ int clear(Sound winsound){
     if (isWinP1){
         scoreP1 = scoreP1 +1;
         PlaySound(winsound);
+        isWin = true;
+        isGame = false;
+        winner = 1;
     }
     else if(isWinP2){
         scoreP2 = scoreP2 +1;
         PlaySound(winsound);
+        isWin = true;
+        isGame = false;
+        winner = 2;
     }
     isWinP1 = false;
     isWinP2 = false;
@@ -80,6 +87,15 @@ int win(int player, Sound winsound){
         }
         clear(winsound);
     }
+    if (p7.status==player && p8.status == player && p9.status == player){
+        if(player==1){
+            isWinP1 = true;
+        }
+        else{
+            isWinP2 = true;
+        }
+        clear(winsound);
+    }
 }
 int hitbox(int mousex, int mousey, int fromx, int fromy, int tox, int toy, int key){
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && mousex >= fromx  && mousey >= fromy && mousex <= tox && mousey <= toy or IsKeyDown(key)){
@@ -87,6 +103,7 @@ int hitbox(int mousex, int mousey, int fromx, int fromy, int tox, int toy, int k
     }
     return false;
 }
+//game elements
 int cellfill(int status, int x, int y, Texture2D circle, Texture2D xs){
     if (status == 1){
         DrawTexture(circle, x, y, WHITE);
@@ -95,18 +112,8 @@ int cellfill(int status, int x, int y, Texture2D circle, Texture2D xs){
         DrawTexture(xs, x, y, WHITE);
     }
 }
-int title(Texture2D titlescreen, Texture2D button, Sound circlesound){
-    BeginDrawing();
-    ClearBackground(DARKBLUE);
-    DrawTexture(titlescreen, 0, 0, WHITE);
-    DrawTexture(button, 350, 130, WHITE);
-    if (hitbox(mousex, mousey, 350, 130, 450, 180, 12)){
-        isTitle = false;
-        isGame = true;
-        PlaySound(circlesound);
-    }
-    EndDrawing();
-}
+
+
 //main function
 int main(){
     //Initialization
@@ -116,7 +123,7 @@ int main(){
     mousex = { GetMousePosition().x};
     mousey = { GetMousePosition().y};
     //loading textures
-    Texture2D circle = LoadTexture("images/circle.png"), xs = LoadTexture("images/x.png"), titlescreen = LoadTexture("images/title.png"), button = LoadTexture("images/button.png");
+    Texture2D circle = LoadTexture("images/circle.png"), xs = LoadTexture("images/x.png"), titlescreen = LoadTexture("images/title.png"), button = LoadTexture("images/button.png"), winner1 = LoadTexture("images/winner1.png"), winner2 = LoadTexture("images/winner2.png"), button_again = LoadTexture("images/button_again.png");
     //loading sounds
     Sound circlesound = LoadSound("sounds/circle.wav");
     Sound xsound = LoadSound("sounds/x.wav");
@@ -125,12 +132,32 @@ int main(){
         //mouse position
         mousex = { GetMousePosition().x};
         mousey = { GetMousePosition().y};
+        BeginDrawing();
+        ClearBackground(DARKBLUE);
         if (isTitle){
-            title(titlescreen, button, circlesound);
+            DrawTexture(titlescreen, 0, 0, WHITE);
+            DrawTexture(button, 350, 130, WHITE);
+            if (hitbox(mousex, mousey, 350, 130, 450, 180, 13)){
+                isTitle = false;
+                isGame = true;
+                PlaySound(circlesound);
+            }
+        }
+        if(isWin){
+            if (winner == 1){
+                DrawTexture(winner1, 0, 0, WHITE);
+            }
+            if (winner == 2){
+                DrawTexture(winner2, 0, 0, WHITE);
+            }
+            DrawTexture(button_again, 350, 230, WHITE);
+            if (hitbox(mousex, mousey, 350, 230, 450, 280, 13)){
+                isWin = false;
+                isGame = true;
+                PlaySound(circlesound);
+            }
         }
         if (isGame){
-            BeginDrawing();
-            ClearBackground(DARKBLUE);
             //graphics interface
             //vertical lines
             DrawRectangle(10, 10, 10, 340, WHITE);
@@ -333,8 +360,8 @@ int main(){
             if (count == 9){
                 clear(winsound);
             }
-            EndDrawing();
         }
+        EndDrawing();
     }
     CloseWindow();
 
