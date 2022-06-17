@@ -154,7 +154,7 @@ int main(){
             if (hitbox(mousex, mousey, 350, 230, 450, 280, 13)){
                 isWin = false;
                 isGame = true;
-                PlaySound(circlesound);
+                PlaySound(xsound);
             }
         }
         if (isGame){
