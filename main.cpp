@@ -17,7 +17,8 @@ bool isPlayerOne = true, isPlayerTwo = false, isWinP1 = false, isWinP2 = false;
 //Game
 bool isTitle = true, isGame = false, isWin = false;
 int winner = 0;
-Sound winsound;
+Sound winsound, circlesound, xsound;
+Texture2D circle, xs;
 //Functions
 void clear(){
     for(int i = 0; i < 3; i++){
@@ -87,19 +88,19 @@ void win(int player){
         clear();
     }
 }
-int hitbox(int mousex, int mousey, int fromx, int fromy, int tox, int toy){
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && mousex >= fromx  && mousey >= fromy && mousex <= tox && mousey <= toy){
+int hitbox(p pole){
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && mousex >= pole.startposx  && mousey >= pole.startposy && mousex <= pole.endposx && mousey <= pole.endposy){
         return true;
     }
     return false;
 }
 //game elements
-void cellfill(int status, int x, int y, Texture2D circle, Texture2D xs){
-    if (status == 1){
-        DrawTexture(circle, x, y, WHITE);
+void cellfill(p pole){
+    if (pole.status == 1){
+        DrawTexture(circle, pole.startposx, pole.startposy, WHITE);
     }
-    if (status == 2){
-        DrawTexture(xs, x, y, WHITE);
+    if (pole.status == 2){
+        DrawTexture(xs, pole.startposx, pole.startposy, WHITE);
     }
 }
 
@@ -114,15 +115,13 @@ int main(){
     //Initialization
     InitWindow(800,360,"Tick tack toe");
     InitAudioDevice();
-    SetTargetFPS(60);
+    SetTargetFPS(120);
     mousex = { GetMousePosition().x};
     mousey = { GetMousePosition().y};
     //loading textures
     Texture2D circle = LoadTexture("images/circle.png"), xs = LoadTexture("images/x.png"), titlescreen = LoadTexture("images/title.png"), button = LoadTexture("images/button.png"), button_again = LoadTexture("images/button_again.png");
     //loading sounds
-    Sound circlesound = LoadSound("sounds/circle.wav");
-    Sound xsound = LoadSound("sounds/x.wav");
-    Sound winsound = LoadSound("sounds/win.wav");
+    Sound circlesound = LoadSound("sounds/circle.wav"), xsound = LoadSound("sounds/x.wav"), winsound = LoadSound("sounds/win.wav");
     while(!WindowShouldClose()){
         //mouse position
         mousex = { GetMousePosition().x};
@@ -132,7 +131,7 @@ int main(){
         if (isTitle){
             DrawTexture(titlescreen, 0, 0, WHITE);
             DrawTexture(button, 350, 130, WHITE);
-            if (hitbox(mousex, mousey, 350, 130, 450, 180)){
+            if (hitbox({350, 130, 450, 180})){
                 isTitle = false;
                 isGame = true;
                 PlaySound(circlesound);
@@ -146,7 +145,7 @@ int main(){
                 DrawText("Player 2 wins!", 250, 100, 50, WHITE);
             }
             DrawTexture(button_again, 350, 230, WHITE);
-            if (hitbox(mousex, mousey, 350, 230, 450, 280)){
+            if (hitbox({350, 230, 450, 280})){
                 isWin = false;
                 isGame = true;
                 PlaySound(xsound);
@@ -176,7 +175,7 @@ int main(){
             //click register
             for(int i = 0; i < 3; i++){
                 for(int j = 0; j < 3; j++){
-                    if(hitbox(mousex, mousey, pola[i][j].startposx, pola[i][j].startposy, pola[i][j].endposx, pola[i][j].endposy)){
+                    if(hitbox(pola[i][j])){
                         if (pola[i][j].status==0){
                             if (isPlayerOne){
                                 isPlayerOne = false;
@@ -201,7 +200,7 @@ int main(){
             // Circles and exes
             for(int i = 0; i < 3; i++){
                 for(int j = 0; j < 3; j++){
-                    cellfill(pola[i][j].status, pola[i][j].startposx, pola[i][j].startposy, circle, xs);
+                    cellfill(pola[i][j]);
                 }
             }
             //win check
