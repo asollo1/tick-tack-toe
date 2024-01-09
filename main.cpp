@@ -26,16 +26,18 @@ void clear(){
             pola[i][j].status = 0;
         }
     }
-    PlaySound(winsound);
-    isWin = true;
-    isGame = false;
     if (isWinP1){
         scoreP1 = scoreP1 +1;
         winner = 1;
-    }
-    else{
+        PlaySound(winsound);
+        isWin = true;
+        isGame = false;
+    }else if (isWinP2){
         scoreP2 = scoreP2 +1;
         winner = 2;
+        PlaySound(winsound);
+        isWin = true;
+        isGame = false;
     }
     isWinP1 = false;
     isWinP2 = false;
@@ -94,15 +96,7 @@ int hitbox(p pole){
     }
     return false;
 }
-//game elements
-void cellfill(p pole){
-    if (pole.status == 1){
-        DrawTexture(circle, pole.startposx, pole.startposy, WHITE);
-    }
-    if (pole.status == 2){
-        DrawTexture(xs, pole.startposx, pole.startposy, WHITE);
-    }
-}
+
 
 
 //main function
@@ -167,7 +161,6 @@ int main(){
             } else {
                 DrawText("Turn of Player B", 450, 50, 30, WHITE);
             }
-             
             DrawText("Player A: ", 450, 150, 50, WHITE);
             DrawText("Player B: ", 450, 200, 50, WHITE);
             DrawText(std::to_string(scoreP1).c_str(), 700, 150, 50, WHITE);
@@ -200,7 +193,12 @@ int main(){
             // Circles and exes
             for(int i = 0; i < 3; i++){
                 for(int j = 0; j < 3; j++){
-                    cellfill(pola[i][j]);
+                    if (pola[i][j].status == 1){
+                        DrawTexture(circle, pola[i][j].startposx, pola[i][j].startposy, WHITE);
+                    }
+                    if (pola[i][j].status == 2){
+                        DrawTexture(xs, pola[i][j].startposx, pola[i][j].startposy, WHITE);
+                    };
                 }
             }
             //win check
